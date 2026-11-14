@@ -1,0 +1,15 @@
+{
+  "name": "English Hub",
+  "short_name": "English Hub",
+  "description": "Học tiếng Anh cá nhân: từ vựng, flashcard, chính tả, luyện nghe kiểu TOEIC.",
+  "lang": "vi",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#060a15",
+  "theme_color": "#0a1022",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}

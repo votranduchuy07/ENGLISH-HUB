@@ -1,0 +1,232 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/space-grotesk';
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/jetbrains-mono';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ============================== TOKENS — "NEON CONSOLE" ==============================
+   Tên biến giữ nguyên để toàn bộ component dùng lại được:
+   burgundy = màu chính (tím điện), gold = màu nhấn (cyan), forest = màu tích cực (teal), deep = nền khối tối. */
+:root {
+  --bg: #eef1f8;
+  --surface: #ffffff;
+  --surface-2: #e5e9f4;
+  --ink: #0e1426;
+  --ink-2: #2a3350;
+  --muted: #5b6585;
+  --rule: rgba(40, 56, 120, 0.12);
+  --rule-strong: rgba(40, 56, 120, 0.26);
+  --burgundy: #5a49f5;
+  --burgundy-ink: #4a3ae0;
+  --forest: #0c8a7a;
+  --gold: #06b6d4;
+  --gold-ink: #0583a0;
+  --olive: #6b7a99;
+  --deep: #0a1022;
+  --charcoal: #070b16;
+  --on-dark: #e8ecfa;
+  --ok: #0f9d6b;
+  --bad: #d63852;
+  --glow: rgba(6, 182, 212, 0.35);
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset, 0 12px 32px -18px rgba(20, 32, 90, 0.28), 0 1px 3px rgba(20, 32, 90, 0.08);
+  --shadow-lift: 0 1px 0 rgba(255, 255, 255, 0.8) inset, 0 24px 50px -22px rgba(20, 32, 90, 0.38), 0 4px 10px -4px rgba(20, 32, 90, 0.16);
+  --grid-line: rgba(40, 56, 120, 0.055);
+  --grid-glow-a: rgba(90, 73, 245, 0.1);
+  --grid-glow-b: rgba(6, 182, 212, 0.1);
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #060a15;
+  --surface: #0d1325;
+  --surface-2: #151d36;
+  --ink: #e8ecfa;
+  --ink-2: #c3cbe6;
+  --muted: #8791b3;
+  --rule: rgba(125, 150, 255, 0.14);
+  --rule-strong: rgba(125, 150, 255, 0.3);
+  --burgundy: #6d5dfc;
+  --burgundy-ink: #a198ff;
+  --forest: #0d9a87;
+  --gold: #22d3ee;
+  --gold-ink: #5ee0f5;
+  --olive: #8a97bd;
+  --deep: #0a1022;
+  --charcoal: #04070f;
+  --ok: #34d399;
+  --bad: #fb7185;
+  --glow: rgba(34, 211, 238, 0.4);
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 16px 40px -22px rgba(0, 0, 0, 0.85), 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-lift: 0 1px 0 rgba(255, 255, 255, 0.07) inset, 0 28px 60px -24px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(34, 211, 238, 0.25);
+  --grid-line: rgba(125, 150, 255, 0.055);
+  --grid-glow-a: rgba(109, 93, 252, 0.16);
+  --grid-glow-b: rgba(34, 211, 238, 0.1);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+  --color-burgundy: var(--burgundy);
+  --color-burgundy-ink: var(--burgundy-ink);
+  --color-forest: var(--forest);
+  --color-gold: var(--gold);
+  --color-gold-ink: var(--gold-ink);
+  --color-olive: var(--olive);
+  --color-deep: var(--deep);
+  --color-charcoal: var(--charcoal);
+  --color-on-dark: var(--on-dark);
+  --color-ok: var(--ok);
+  --color-bad: var(--bad);
+  --font-display: 'Space Grotesk Variable', 'Inter Variable', system-ui, sans-serif;
+  --font-serif: 'Inter Variable', system-ui, sans-serif;
+  --font-sans: 'Inter Variable', 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+  --shadow-paper: var(--shadow);
+  --shadow-lift: var(--shadow-lift);
+}
+
+/* ============================== BASE ============================== */
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-feature-settings: 'cv11', 'ss01';
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+/* nền lưới + vầng sáng */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 85% -10%, var(--grid-glow-a), transparent 70%),
+    radial-gradient(50% 40% at 0% 100%, var(--grid-glow-b), transparent 70%),
+    linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0 / 44px 44px,
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0 / 44px 44px;
+  z-index: 0;
+}
+#root { position: relative; z-index: 1; }
+::selection { background: color-mix(in srgb, var(--gold) 38%, transparent); color: var(--ink); }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 6px; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; }
+.italic { font-style: normal; } /* giao diện hi-tech không dùng chữ nghiêng kiểu sách */
+
+* { scrollbar-width: thin; scrollbar-color: var(--rule-strong) transparent; }
+
+/* ============================== COMPONENT UTILITIES ============================== */
+@layer components {
+  /* Thẻ nổi */
+  .sheet {
+    background: color-mix(in srgb, var(--surface) 94%, transparent);
+    border: 1px solid var(--rule);
+    box-shadow: var(--shadow);
+    border-radius: 14px;
+    backdrop-filter: blur(6px);
+  }
+  .sheet-lift { transition: transform 0.3s cubic-bezier(.2,.8,.2,1), box-shadow 0.3s, border-color 0.3s; }
+  .sheet-lift:hover { transform: translateY(-3px); box-shadow: var(--shadow-lift); border-color: color-mix(in srgb, var(--gold) 55%, transparent); }
+
+  /* Khối tối "bảng điều khiển": nền navy, vầng sáng cyan/tím, viền phát sáng */
+  .leather {
+    color: var(--on-dark);
+    background:
+      radial-gradient(110% 90% at 0% 0%, rgba(34, 211, 238, 0.14), transparent 55%),
+      radial-gradient(90% 80% at 100% 100%, rgba(109, 93, 252, 0.24), transparent 60%),
+      linear-gradient(rgba(125, 150, 255, 0.05) 1px, transparent 1px) 0 0 / 28px 28px,
+      linear-gradient(90deg, rgba(125, 150, 255, 0.05) 1px, transparent 1px) 0 0 / 28px 28px,
+      var(--deep);
+    border: 1px solid rgba(34, 211, 238, 0.28);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03) inset, 0 18px 44px -24px var(--glow), var(--shadow);
+    border-radius: 16px;
+  }
+  .wine {
+    color: var(--on-dark);
+    background:
+      radial-gradient(110% 90% at 100% 0%, rgba(34, 211, 238, 0.28), transparent 55%),
+      linear-gradient(145deg, #5a49f5 0%, #3426b8 55%, #1a1470 100%);
+    border: 1px solid rgba(160, 180, 255, 0.4);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 20px 50px -22px rgba(90, 73, 245, 0.7), var(--shadow);
+    border-radius: 16px;
+  }
+
+  /* Đường kẻ phát sáng */
+  .rule-gold { height: 1px; background: linear-gradient(90deg, var(--gold), color-mix(in srgb, var(--burgundy) 60%, transparent) 45%, transparent); position: relative; }
+  .rule-gold::after { content: ''; position: absolute; left: 0; top: -2px; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px 2px var(--glow); }
+  .rule-ink { border-top: 1px solid var(--rule-strong); }
+
+  /* Chữ */
+  .folio { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-ink); }
+  .kicker { font-family: var(--font-mono); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .display { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.03em; line-height: 1.05; }
+  .entry-word { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.035em; line-height: 1; }
+  .ipa { font-family: var(--font-mono); font-size: 0.82em; color: var(--muted); letter-spacing: 0; }
+  .smallcaps { letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.85em; }
+  .serif-italic { font-family: var(--font-display); font-style: normal; font-weight: 500; }
+  .grad-text {
+    background: linear-gradient(100deg, var(--burgundy-ink), var(--gold) 90%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+
+  .leather .grad-text, .wine .grad-text { background-image: linear-gradient(100deg, #b4acff, #22d3ee 90%); }
+
+  .dropcap::first-letter { float: left; font-family: var(--font-display); font-weight: 700; font-size: 3.2em; line-height: 0.85; padding: 0.05em 0.1em 0 0; color: var(--gold-ink); }
+
+  /* Giữ lại cho trang cần kẻ dòng */
+  .lined { background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 39px, color-mix(in srgb, var(--gold) 16%, transparent) 39px, color-mix(in srgb, var(--gold) 16%, transparent) 40px); }
+  .margin-line { position: relative; }
+  .margin-line::before { content: ''; position: absolute; top: 0; bottom: 0; left: 3.25rem; border-left: 1.5px solid color-mix(in srgb, var(--burgundy) 45%, transparent); }
+
+  /* Góc khung HUD */
+  .frame-ornate { position: relative; }
+  .frame-ornate::before, .frame-ornate::after {
+    content: ''; position: absolute; width: 18px; height: 18px; border: 2px solid var(--gold); pointer-events: none; filter: drop-shadow(0 0 4px var(--glow));
+  }
+  .frame-ornate::before { top: 8px; left: 8px; border-right: 0; border-bottom: 0; border-top-left-radius: 6px; }
+  .frame-ornate::after { bottom: 8px; right: 8px; border-left: 0; border-top: 0; border-bottom-right-radius: 6px; }
+
+  .stamp {
+    display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.18rem 0.55rem; border: 1px solid currentColor;
+    border-radius: 6px; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase;
+  }
+
+  .input-ink {
+    width: 100%; background: transparent; border: 0; border-bottom: 1.5px solid var(--rule-strong); padding: 0.5rem 0.1rem; color: var(--ink); outline: none;
+    transition: border-color 0.2s;
+  }
+  .input-ink:focus { border-color: var(--gold); }
+  .field {
+    width: 100%; background: color-mix(in srgb, var(--surface-2) 55%, var(--surface)); border: 1px solid var(--rule-strong); border-radius: 10px; padding: 0.6rem 0.85rem; color: var(--ink); outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .field:focus { border-color: var(--gold); box-shadow: 0 0 0 3px color-mix(in srgb, var(--gold) 24%, transparent); }
+  .field::placeholder { color: color-mix(in srgb, var(--muted) 75%, transparent); }
+
+  /* 3D flashcard */
+  .perspective { perspective: 1600px; }
+  .preserve-3d { transform-style: preserve-3d; }
+  .backface-hidden { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+
+  .skeleton {
+    background: linear-gradient(90deg, var(--surface-2) 0%, color-mix(in srgb, var(--surface-2) 50%, var(--surface)) 50%, var(--surface-2) 100%);
+    background-size: 200% 100%; animation: shimmer 1.4s ease-in-out infinite; border-radius: 10px;
+  }
+}
+
+@keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
